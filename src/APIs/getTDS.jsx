@@ -20,7 +20,7 @@ export const postTDS =async (newTodo)=>{
     try {
         const reponse=await api.post('/addTDS',null,{
             params:{todo:newTodo}});
-        getTDS();
+        // getTDS();
         return reponse.data
     } catch (error) {
         console.log(error);

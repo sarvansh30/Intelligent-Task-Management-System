@@ -10,17 +10,18 @@ import { getTDS } from "./APIs/getTDS";
 
 function App() {
 
+  const fetchTodos = async ()=>{
+    try{
+      const data =await getTDS();
+      setList([...data]);
+      console.log(list);
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   const [list,setList]=useState([]);
   useEffect(()=>{
-    const fetchTodos = async ()=>{
-      try{
-        const data =await getTDS();
-        setList(newList=>[...list,...data]);
-        console.log(list);
-      }catch(err){
-        console.log(err);
-      }
-    }
     fetchTodos();
     console.log(list);
   }
@@ -30,7 +31,7 @@ function App() {
   return (
     <>
       <Header />
-      <TodoInput tds={list} setTdList={setList}/>
+      <TodoInput tds={list} fetchTDS={fetchTodos}/>
       <TodoList tds={list}/>
       <Footer />
     </>
