@@ -8,21 +8,32 @@ export const api = axios.create({
 
 export const getTDS = async () => {
     try {
-        const response = await api.get('/todos'); // Corrected variable name
+        const response = await api.get('/todos'); 
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error("Error fetching todos:", error);
-        throw error; // Rethrow error for proper handling by caller
+        throw error; 
     }
 };
 
 export const postTDS =async (newTodo)=>{
     try {
-        const reponse=await api.post('/addTDS',null,{
-            params:{todo:newTodo}});
+        const reponse=await api.post('/addTDS',newTodo);
         // getTDS();
         return reponse.data
     } catch (error) {
         console.log(error);
     }
-}
+};
+
+export const deleteTD=async (todoID)=>{
+    try {
+        const response= await api.delete('/deleteTD',{
+            params: {_id:todoID}
+        }) ;
+        return response.data
+    } catch (error) {
+        console.log(error);
+    }
+};

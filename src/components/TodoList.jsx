@@ -1,16 +1,26 @@
-import {useState,useEffect} from 'react';
-function TodoList({tds}){
-    // const todos= useState[TodoList,setList()];
+import { useState } from 'react';
+import { deleteTD } from '../APIs/getTDS';
 
-    return(
+function TodoList({ tds, fetchTDS }) {
+
+    async function handleClick(todo) {
+        await deleteTD(todo);
+        fetchTDS();
+    }
+
+    
+
+    return (
         <div>
             <h3>Todo List</h3>
             <ol>
-                {
-                    tds.map((todo,index)=>{
-                        return (<li key={index}>{todo}</li>)
-})
-                }
+                {tds.map((todo, index) => (
+                    <li key={index}>
+                        {todo.title}
+                        <button >✅</button>
+                        <button onClick={() => handleClick(todo._id)}>delete</button>
+                    </li>
+                ))}
             </ol>
         </div>
     );

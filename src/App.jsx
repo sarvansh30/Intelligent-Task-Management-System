@@ -14,16 +14,17 @@ function App() {
     try{
       const data =await getTDS();
       setList([...data]);
-      console.log(list);
+      // console.log(list);
     }catch(err){
       console.log(err);
     }
   }
 
   const [list,setList]=useState([]);
+
   useEffect(()=>{
     fetchTodos();
-    console.log(list);
+    // console.log(list.title);
   }
   ,[]);
 
@@ -32,7 +33,7 @@ function App() {
     <>
       <Header />
       <TodoInput tds={list} fetchTDS={fetchTodos}/>
-      <TodoList tds={list}/>
+      <TodoList tds={list}  fetchTDS={fetchTodos}/>
       <Footer />
     </>
   );

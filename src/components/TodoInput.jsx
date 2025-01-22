@@ -6,7 +6,11 @@ function TodoInput({tds,fetchTDS}){
         event.preventDefault();
         console.log("Form Submitted");
         const formData= new FormData(event.currentTarget);
-        const newTodo= formData.get("todo");
+        const newTodo={
+            "title":formData.get("todo"),
+            "iscompleted":false,
+        }
+
         console.log(typeof(newTodo))
         postTDS(newTodo)
         .then((data) => {
