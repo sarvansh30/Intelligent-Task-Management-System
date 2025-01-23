@@ -2,6 +2,7 @@ import { postTDS } from "../APIs/getTDS";
 
 function TodoInput({tds,fetchTDS}){
 
+    
     async function handleSubmit(event){
         event.preventDefault();
         console.log("Form Submitted");
@@ -9,6 +10,7 @@ function TodoInput({tds,fetchTDS}){
         const newTodo={
             "title":formData.get("todo"),
             "iscompleted":false,
+            "deadline": formData.get("deadline")
         }
 
         console.log(typeof(newTodo))
@@ -28,6 +30,10 @@ function TodoInput({tds,fetchTDS}){
                 <input type="text" 
                 name="todo" 
                 placeholder="Enter a todo"/>
+                <input
+                    type="date"
+                    name="deadline"
+                    />
                 <button type="submit">Add</button>
             </form>
     );

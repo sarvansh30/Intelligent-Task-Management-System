@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { deleteTD } from '../APIs/getTDS';
+import { deleteTD,UpdateTD } from '../APIs/getTDS';
+import { format } from "date-fns";
 
 function TodoList({ tds, fetchTDS }) {
 
@@ -8,6 +9,10 @@ function TodoList({ tds, fetchTDS }) {
         fetchTDS();
     }
 
+    async function todoStatusChange(ID,iscompleted){
+        await UpdateTD(ID,iscompleted);
+        fetchTDS();
+    }
     
 
     return (
@@ -17,7 +22,12 @@ function TodoList({ tds, fetchTDS }) {
                 {tds.map((todo, index) => (
                     <li key={index}>
                         {todo.title}
-                        <button >✅</button>
+                        <span style={{paddingLeft:'10px' }}>{format(new Date(todo.deadline), 'EEE, dd/MM/yyyy')}</span>
+                        {todo.iscompleted?
+                        <button onClick={()=>todoStatusChange(todo._id,todo.iscompleted)}>✅</button>:
+                        <button onClick={()=>todoStatusChange(todo._id,todo.iscompleted)}>❌</button>
+                        }
+                        
                         <button onClick={() => handleClick(todo._id)}>delete</button>
                     </li>
                 ))}

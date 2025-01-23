@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from datetime import datetime
+from fastapi import FastAPI, Query
 from motor.motor_asyncio import AsyncIOMotorClient
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -17,6 +18,7 @@ app.add_middleware(
 class Task(BaseModel):
     title: str
     iscompleted:bool
+    deadline:datetime
 
 MONGO_URL = "mongodb://localhost:27017"
 
@@ -47,3 +49,12 @@ async def deleteTD(_id:str):
     print(_id)
     await tdData.delete_one({"_id":ObjectId(_id)})
     return {"message":"Todo deleted successfully"}
+
+
+@app.put('/updateTD/')
+async def updateTD(_id:str,iscompleted:bool=Query(...)):
+    print(_id)
+
+    await tdData.update_one({"_id":ObjectId(_id)},
+    {"$set":{"iscompleted":not iscompleted}})
+    return{"message":"TODO update successfully"}

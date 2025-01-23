@@ -37,3 +37,12 @@ export const deleteTD=async (todoID)=>{
         console.log(error);
     }
 };
+
+export const UpdateTD= async (todoID,iscompleted)=>{
+    const reponse =await api.put('/updateTD/',null,{
+        params:{_id:todoID,
+            iscompleted:iscompleted
+        }
+    });
+    return reponse.data;
+};
