@@ -1,13 +1,10 @@
 body{
-    background-color: #040D12;
-    color: #040D12;
+    background-color: #1E201E;
+    color: #ECDFCC;
 }
 
-button{
-    background-color: #5C8374;
-    color: #040D12;
-}
+.containerIndex{
+    display: flex;
+    flex-direction: column;
 
-.trial{
-    background-color: #5C8374;
 }

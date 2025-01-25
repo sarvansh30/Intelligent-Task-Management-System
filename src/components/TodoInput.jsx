@@ -1,5 +1,5 @@
 import { postTDS } from "../APIs/getTDS";
-
+import "./style.css"
 function TodoInput({tds,fetchTDS}){
 
     
@@ -27,14 +27,14 @@ function TodoInput({tds,fetchTDS}){
     }
     return(
             <form onSubmit={handleSubmit}>
-                <input type="text" 
+                <input className="Input-field" type="text" 
                 name="todo" 
                 placeholder="Enter a todo"/>
-                <input
+                <input className="deadline"
                     type="date"
                     name="deadline"
                     />
-                <button type="submit">Add</button>
+                <button className="submit-btn" type="submit">ADD</button>
             </form>
     );
 }

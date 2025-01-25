@@ -1,0 +1,73 @@
+.body{
+    width: 25rem;
+    justify-items: center;
+    background-color: #3C3D37;
+    border-radius: 10px;
+    min-height: 70vh;
+    flex-grow: 1;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 16px;
+}
+
+
+.Input-field{
+    border-radius: 8px;
+    margin-right: 0.5rem;
+    padding: 12px;
+    /* block-size: 2rem; */
+    min-width: 25rem;
+    background-color: #697565;
+    box-shadow: none;
+    color: #ECDFCC;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 16px;
+}
+.Input-field:hover {
+    background: #4d574a; /* Darker shade on hover */
+    transform: translateY(-0.5px); /* Slight lift */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+.deadline{
+    /* block-size: 2.2rem; */
+    padding: 12px;
+    height: 40px;
+    margin-right: 0.5rem;
+    background-color: #697565;
+    padding: 2px;
+    border-radius: 8px;
+    color: #ECDFCC;
+    border: none;
+    cursor: pointer;
+}
+input[type="text"]:focus, input[type="date"]:focus {
+    border-color: #007bff; /* Highlight on focus */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.25); /* Glow effect */
+  }
+.deadline:hover {
+    background: #4d574a; /* Darker shade on hover */
+    transform: translateY(-0.5px); /* Slight lift */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+
+.submit-btn{
+    background-color: #697565;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    color: #ECDFCC;
+}
+
+.submit-btn:hover {
+    background: #4d574a; /* Darker shade on hover */
+    transform: translateY(-0.5px); /* Slight lift */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+  .submit-btn:active{
+    transform: translateY(0);
+  }
