@@ -12,8 +12,8 @@ function TodoInput({tds,fetchTDS}){
             "iscompleted":false,
             "deadline": formData.get("deadline")
         }
-
-        console.log(typeof(newTodo))
+        event.currentTarget.reset();
+        // console.log(typeof(newTodo))
         postTDS(newTodo)
         .then((data) => {
             console.log("Todo posted successfully:", data);
@@ -26,10 +26,10 @@ function TodoInput({tds,fetchTDS}){
         // console.log(tds);
     }
     return(
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="form-container">
                 <input className="Input-field" type="text" 
                 name="todo" 
-                placeholder="Enter a todo"/>
+                placeholder="Enter a todo..."/>
                 <input className="deadline"
                     type="date"
                     name="deadline"

@@ -9,7 +9,16 @@
     font-size: 16px;
 }
 
-
+.Header{
+    font-size: 52px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bolder;
+    letter-spacing: 2.5px;
+}
+.form-container{
+    display: flex;
+    justify-content: center;
+}
 .Input-field{
     border-radius: 8px;
     margin-right: 0.5rem;
@@ -23,11 +32,18 @@
     border: none;
     font-size: 16px;
 }
+
+.Input-field::placeholder{
+    color: #ECDFCC;
+    opacity: 40%;
+}
 .Input-field:hover {
     background: #4d574a; /* Darker shade on hover */
     transform: translateY(-0.5px); /* Slight lift */
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
   }
+
+
 .deadline{
     /* block-size: 2.2rem; */
     padding: 12px;
@@ -51,6 +67,7 @@ input[type="text"]:focus, input[type="date"]:focus {
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
   }
 
+
 .submit-btn{
     background-color: #697565;
     padding: 14px 24px;
@@ -71,3 +88,5 @@ input[type="text"]:focus, input[type="date"]:focus {
   .submit-btn:active{
     transform: translateY(0);
   }
+
+  

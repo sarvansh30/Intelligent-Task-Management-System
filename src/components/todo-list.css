@@ -1,0 +1,28 @@
+.task-card{
+    background-color: #697565;
+    color: #ECDFCC;
+    width: 90%;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: start;
+}
+
+.btn{
+ background-color: #697565;
+ border: none;
+ cursor: pointer;
+}
+.btn-delete{
+    margin-left: auto;
+}
+.btn-delete img {
+    width: 20px;
+    height: 20px;
+    transition: opacity 0.2s;
+  }
+
+.btn-delete:hover{
+    color: #007bff;
+}

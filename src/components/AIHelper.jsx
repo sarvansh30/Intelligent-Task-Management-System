@@ -3,7 +3,7 @@ import "./style.css"
 function AIHelper(){
     return(
         <div className="body">
-        <h2>AI helper</h2>
+        <h2>Helper.ai</h2>
         </div>
     )
 };
