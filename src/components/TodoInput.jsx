@@ -29,10 +29,12 @@ function TodoInput({tds,fetchTDS}){
             <form onSubmit={handleSubmit} className="form-container">
                 <input className="Input-field" type="text" 
                 name="todo" 
+                required="true"
                 placeholder="Enter a todo..."/>
                 <input className="deadline"
                     type="date"
                     name="deadline"
+                    required="true"
                     />
                 <button className="submit-btn" type="submit">ADD</button>
             </form>

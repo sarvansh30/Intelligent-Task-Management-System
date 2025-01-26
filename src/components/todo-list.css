@@ -1,18 +1,28 @@
 .task-card{
     background-color: #697565;
     color: #ECDFCC;
-    width: 90%;
+    width: 85%;
     padding: 8px 18px;
     border-radius: 8px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: start;
+    transition: all 0.4ms ease-in-out;
+    font-weight: bold;
+    font-size: 15px;
+}
+.task-card:hover{ /* Darker shade on hover */
+    transform: translateY(-0.5px); /* Slight lift */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .btn{
  background-color: #697565;
  border: none;
  cursor: pointer;
+}
+.btn:hover{
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 .btn-delete{
     margin-left: auto;
@@ -26,3 +36,29 @@
 .btn-delete:hover{
     color: #007bff;
 }
+
+.todo-section{
+    overflow-y: auto;
+    max-height:28vh;
+    min-height: 28vh;
+}
+.todo-completed-section{
+    overflow-y: auto;
+    max-height:15vh;
+}
+
+.custom-scroll::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  .custom-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+  }
+  
+  .custom-scroll::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #6ee7b7, #3b82f6);
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+  }

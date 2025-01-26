@@ -17,11 +17,12 @@ function TodoList({ tds, fetchTDS }) {
 
     return (
         <div>
-            <div>
-            <h4>Tasks to do - </h4>
+            <div >
+            <h4>Tasks to do - {tds.filter(todo=>!todo.iscompleted).length}</h4>
+            <div className='todo-section'>
             {tds.filter(todo=>!todo.iscompleted)
             .map((todo,index)=>(
-                <p key={index} className='task-card'>
+                <p key={index} className='task-card' >
                 <button className="btn btn-iscomplete" onClick={()=>todoStatusChange(todo._id,todo.iscompleted)}>❌</button>
                 {todo.title}
                 <span style={{paddingLeft:'10px' }}>{format(new Date(todo.deadline), 'EEE, dd/MM/yyyy')}</span>
@@ -33,9 +34,11 @@ function TodoList({ tds, fetchTDS }) {
 
             ))}
             </div>
+            </div>
 
         <div>
-            <h4>Tasks completed - </h4>
+            <h4>Tasks completed - {tds.filter(todo=>todo.iscompleted).length}</h4>
+            <div className='todo-completed-section '>
             {tds.filter(todo=>todo.iscompleted)
             .map((todo,index)=>(
                 <p key={index} className='task-card'>
@@ -49,6 +52,7 @@ function TodoList({ tds, fetchTDS }) {
                 </p>
             ))
             }
+            </div>
             </div>    
             
             {/* <h3>Tasks to do - </h3>
