@@ -16,14 +16,49 @@ function TodoList({ tds, fetchTDS }) {
     
 
     return (
-        <div><h3>Tasks to do - </h3>
+        <div>
+            <div>
+            <h4>Tasks to do - </h4>
+            {tds.filter(todo=>!todo.iscompleted)
+            .map((todo,index)=>(
+                <p key={index} className='task-card'>
+                <button className="btn btn-iscomplete" onClick={()=>todoStatusChange(todo._id,todo.iscompleted)}>❌</button>
+                {todo.title}
+                <span style={{paddingLeft:'10px' }}>{format(new Date(todo.deadline), 'EEE, dd/MM/yyyy')}</span>
+                        
+                        <button className='btn btn-delete' onClick={() => handleClick(todo._id)}>
+                            <img src="https://cdn-icons-png.flaticon.com/512/484/484662.png" alt="delete" />
+                        </button>
+                </p>
+
+            ))}
+            </div>
+
+        <div>
+            <h4>Tasks completed - </h4>
+            {tds.filter(todo=>todo.iscompleted)
+            .map((todo,index)=>(
+                <p key={index} className='task-card'>
+                <button className="btn btn-iscomplete" onClick={()=>todoStatusChange(todo._id,todo.iscompleted)}>✅</button>
+                {todo.title}
+                <span style={{paddingLeft:'10px' }}>{format(new Date(todo.deadline), 'EEE, dd/MM/yyyy')}</span>
+                        
+                        <button className='btn btn-delete' onClick={() => handleClick(todo._id)}>
+                            <img src="https://cdn-icons-png.flaticon.com/512/484/484662.png" alt="delete" />
+                        </button>
+                </p>
+            ))
+            }
+            </div>    
+            
+            {/* <h3>Tasks to do - </h3>
                 {tds.map((todo, index) => (
                     <p key={index} className='task-card'>
                         {todo.iscompleted?
                         <button className="btn btn-iscomplete" onClick={()=>todoStatusChange(todo._id,todo.iscompleted)}>✅</button>:
                         <button className="btn btn-iscomplete" onClick={()=>todoStatusChange(todo._id,todo.iscompleted)}>❌</button>
                         }
-    
+
                         {todo.title}
                         <span style={{paddingLeft:'10px' }}>{format(new Date(todo.deadline), 'EEE, dd/MM/yyyy')}</span>
                         
@@ -32,7 +67,7 @@ function TodoList({ tds, fetchTDS }) {
                         </button>
                     </p>
                 ))}
-            <h3>Done - </h3>
+            <h3>Done - </h3> */}
         </div>
     );
 }
