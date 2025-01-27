@@ -19,6 +19,7 @@ class Task(BaseModel):
     title: str
     iscompleted:bool
     deadline:datetime
+    priority:int
 
 MONGO_URL = "mongodb://localhost:27017"
 
@@ -33,6 +34,7 @@ async def getTodos():
     serialized_todos = []
     for todo in todos: 
         todo['_id'] = str(todo['_id']) 
+        todo['deadline']=todo['deadline'].isoformat()
         # print(todo) 
         serialized_todos.append(todo)
     print(serialized_todos)

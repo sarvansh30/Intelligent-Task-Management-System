@@ -10,7 +10,8 @@ function TodoInput({tds,fetchTDS}){
         const newTodo={
             "title":formData.get("todo"),
             "iscompleted":false,
-            "deadline": formData.get("deadline")
+            "deadline": formData.get("deadline"),
+            "priority":1
         }
         event.currentTarget.reset();
         // console.log(typeof(newTodo))
