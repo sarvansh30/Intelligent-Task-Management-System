@@ -36,7 +36,9 @@ function TodoInput({tds,fetchTDS}){
                     name="deadline"
                     required="true"
                     />
-                <button className="submit-btn" type="submit">ADD</button>
+                <button className="submit-btn" type="submit">
+                    <img src="src/assets/icons8-plus-24.png" alt="ADD" />
+                </button>
             </form>
     );
 }
