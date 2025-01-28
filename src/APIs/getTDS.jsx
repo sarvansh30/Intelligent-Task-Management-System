@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = "http://localhost:8000";
+const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const api = axios.create({
     baseURL: API_URL,
@@ -45,4 +45,13 @@ export const UpdateTD= async (todoID,iscompleted)=>{
         }
     });
     return reponse.data;
+};
+
+export const PrioritiseHelperAi = async ()=>{
+    try{
+  await api.get('/helper-ai-priority'); }
+  catch(error){
+    console.log(error);
+  }
+//   console.log(reponse.data)
 };

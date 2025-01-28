@@ -1,5 +1,6 @@
 import { postTDS } from "../APIs/getTDS";
 import "./style.css"
+
 function TodoInput({tds,fetchTDS}){
 
     
@@ -10,7 +11,8 @@ function TodoInput({tds,fetchTDS}){
         const newTodo={
             "title":formData.get("todo"),
             "iscompleted":false,
-            "deadline": formData.get("deadline")
+            "deadline": formData.get("deadline"),
+            "priority":0
         }
         event.currentTarget.reset();
         // console.log(typeof(newTodo))

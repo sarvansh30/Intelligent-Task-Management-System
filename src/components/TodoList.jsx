@@ -20,7 +20,9 @@ function TodoList({ tds, fetchTDS }) {
             < >
             <h4 style={{marginBottom:"1px"}}>Tasks to do - {tds.filter(todo=>!todo.iscompleted).length}</h4>
             <div className='todo-section'>
-            {tds.filter(todo=>!todo.iscompleted)
+            {tds.slice()
+            .sort((a,b)=> b.priority - a.priority)
+            .filter(todo=>!todo.iscompleted)
             .map((todo,index)=>(
                 <p key={index} className='task-card'>
                 <button className="btn btn-iscomplete" onClick={()=>todoStatusChange(todo._id,todo.iscompleted)}>❌</button>
