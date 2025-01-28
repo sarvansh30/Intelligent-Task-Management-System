@@ -46,3 +46,12 @@ export const UpdateTD= async (todoID,iscompleted)=>{
     });
     return reponse.data;
 };
+
+export const PrioritiseHelperAi = async ()=>{
+    try{
+  await api.get('/helper-ai-priority'); }
+  catch(error){
+    console.log(error);
+  }
+//   console.log(reponse.data)
+};

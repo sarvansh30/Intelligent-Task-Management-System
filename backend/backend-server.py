@@ -4,6 +4,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from bson import ObjectId
+from helper_ai_API import PriorityTask
 
 app= FastAPI()
 
@@ -37,7 +38,7 @@ async def getTodos():
         todo['deadline']=todo['deadline'].isoformat()
         # print(todo) 
         serialized_todos.append(todo)
-    print(serialized_todos)
+    # print(serialized_todos)
     return serialized_todos
 
 @app.post('/addTDS')
@@ -60,3 +61,16 @@ async def updateTD(_id:str,iscompleted:bool=Query(...)):
     await tdData.update_one({"_id":ObjectId(_id)},
     {"$set":{"iscompleted":not iscompleted}})
     return{"message":"TODO update successfully"}
+
+@app.get('/helper-ai-priority')
+async def HelperAI_priority():
+    tasks=await getTodos()
+    taskss=PriorityTask(tasks)
+    print(taskss["tasks"])
+
+    for todo in taskss["tasks"]:
+        await tdData.update_one({"_id":ObjectId(todo["_id"])},
+                                {"$set":{"priority":todo["priority"]}})
+
+    return {"message":"successfull"}    
+

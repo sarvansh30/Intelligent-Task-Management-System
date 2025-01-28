@@ -34,7 +34,7 @@ function App() {
         <TodoInput tds={list} fetchTDS={fetchTodos} />
         <TodoList tds={list} fetchTDS={fetchTodos} />
         </div>
-        <AIHelper className="Mainsection2"/>
+        <AIHelper className="Mainsection2" fetchTDS={fetchTodos}/>
       </div>
       <Footer />
     </div>
