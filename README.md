@@ -1,8 +1,47 @@
-# React + Vite
+# AI-Powered Task Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An intelligent task manager with AI-driven prioritization and planning features, powered by Mistral.ai.
 
-Currently, two official plugins are available:
+## Table of Contents
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌟 Features
+
+**Implemented Features**
+- ✔️ Basic Task Operations
+  - Create/Delete tasks
+  - Set deadlines
+  - Mark tasks as complete
+- 🤖 AI Prioritization
+  - Dynamic task ordering based on:
+    - Deadline urgency
+    - Task type/category
+    - Contextual relationships
+    - Estimated effort
+
+**Upcoming Features**
+- 🚧 AI Task Assistant (Q&A and step-by-step guidance)
+- 🚧 Smart Day Planner (Auto-schedule based on availability/patterns)
+- 🚧 Anomaly Detection (Context-aware reminders)
+- 🚧 Advanced analytics dashboard
+
+## 💻 Tech Stack
+
+**Frontend**  
+- React.js
+- Axios (API calls)
+- Date-fns (Date handling)
+
+**Backend**  
+- Python FastAPI
+- MongoDB (Database)
+- Mistral.ai (AI processing)
+
+## 🛠️ Local Setup
+
+### Requirements
+- Node.js 18.x+
+- Python 3.10+
+- MongoDB 6.0+
+- Mistral.ai API key
