@@ -91,3 +91,26 @@ input[type="text"]:focus, input[type="date"]:focus {
     transform: translateY(0);
   }
 
+.AI-helper-bod{
+  width: 85%;
+  margin-top: 2%;
+  /* min-height: 70%; */
+  height:70%;
+  background-color: #383933;
+  border-radius: 8px;
+}
+
+.AI-text-input{
+  border-radius: 8px;
+  /* margin-right: 0.5rem; */
+  padding: 12px;
+  margin-top: 3%;
+  /* block-size: 2rem; */
+  min-width: 18.5rem;
+  background-color: #697565;
+  box-shadow: none;
+  color: #ECDFCC;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 16px;
+}

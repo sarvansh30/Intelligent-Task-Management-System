@@ -19,8 +19,10 @@ function AIHelper(props){
 
     return(
         <div className="body">
-        <h2>Helper.ai</h2>
+        <h2>Helper.ai <span style={{fontSize:"13px"}}>(Powered by Mistral.ai)</span></h2>
         <button className="btn submit-btn" onClick={callHelperAi}>Prioritise tasks</button>
+        <div className="AI-helper-bod"></div>
+        <input type="text" className="AI-text-input"></input>
         </div>
     )
 };

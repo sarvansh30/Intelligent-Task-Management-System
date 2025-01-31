@@ -27,26 +27,24 @@ def PriorityTask(tasks):
     )
     prioritized_tasks = json.loads(response.choices[0].message.content)
     return prioritized_tasks
-# Define your tasks with deadlines and types
-# tasks = [{'_id': '6797f2b32b0fe3329bfb6383', 'title': 'complete AI agent', 'iscompleted': False, 'deadline': '2025-01-29T00:00:00', 'priority': 1}, {'_id': '6797f2ce2b0fe3329bfb6384', 'title': 'Learn AI/ML', 'iscompleted': False, 'deadline': '2025-01-31T00:00:00', 'priority': 1}, {'_id': '6797fe623ff76687e71de375', 'title': 'wash clothes', 'iscompleted': False, 'deadline': '2025-01-29T00:00:00', 'priority': 1}]
 
-# # Get the prioritized response
-# response = client.chat.complete(
-#     model=model,
-#     messages=messages,
-#     response_format={"type": "json_object"}
-# )
-# async def response():
-    # return await PriorityTask(tasks)
+
+async def PlanMyDay(tasks):
     
-# print(asyncio.run(response()))
-# # Print and use the result
-# print(response)
-# print(response.choices[0].message.content)
+    response = await client.chat.stream_async(
+        model=model,
+        messages=[
+             {
+                  "role": "user",
+                  "content": ("Below are my lists of tasks can you help me plan out my day so i can be productive with proper breaks"
+                              f"Tasks: {json.dumps(tasks)}"),
+              },
+        ],
+    )
+    async for chunk in response:
+        if chunk.data.choices[0].delta.content is not None:
+            print(chunk.data.choices[0].delta.content, end="")
 
-# # Optional: Parse the JSON response
-# prioritized_tasks = json.loads(response.choices[0].message.content)
-# print(response)
-# print("\nPrioritized Tasks:")
-# for task in prioritized_tasks['tasks']:
-#     print(f"{task['priority']}: {task['title']} ({task['type']}) due {task['deadline']}")
+tasks=[{'_id': '6798ada91c3da6cb5d45e670', 'title': 'prepare for qualys interview', 'iscompleted': True, 'deadline': '2025-01-28T00:00:00', 'priority': 4}, {'_id': '6798af5b552f60e8271e3395', 'title': 'buy a file and print resume', 'iscompleted': True, 'deadline': '2025-01-28T00:00:00', 'priority': 3}, {'_id': '679cc536875294e53ba5ae28', 'title': 'Add more features using AI', 'iscompleted': False, 'deadline': '2025-02-01T00:00:00', 'priority': 2}, {'_id': '679cc552875294e53ba5ae29', 'title': 'Learn AI/ML ', 'iscompleted': False, 'deadline': '2025-02-03T00:00:00', 'priority': 1}]
+
+# asyncio.run(PlanMyDay(tasks))

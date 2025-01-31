@@ -38,7 +38,7 @@ async def getTodos():
         todo['deadline']=todo['deadline'].isoformat()
         # print(todo) 
         serialized_todos.append(todo)
-    # print(serialized_todos)
+    print(serialized_todos)
     return serialized_todos
 
 @app.post('/addTDS')
