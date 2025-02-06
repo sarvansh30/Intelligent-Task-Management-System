@@ -7,6 +7,7 @@
     flex-grow: 1;
     font-family: 'Segoe UI', sans-serif;
     font-size: 16px;
+    margin: 0 auto;
 }
 
 .Header{
@@ -18,6 +19,7 @@
 .form-container{
     display: flex;
     justify-content: center;
+    margin: 0 auto;
 }
 .Input-field{
     border-radius: 8px;
