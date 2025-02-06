@@ -1,9 +1,12 @@
 import "./style.css"
 import { PrioritiseHelperAi } from "../APIs/getTDS";
+import { useState } from "react";
 
 
 
 function AIHelper(props){
+
+    const [resp,setResp]= useState("");
 
     async function callHelperAi(){
         await PrioritiseHelperAi()
@@ -21,7 +24,8 @@ function AIHelper(props){
         <div className="body">
         <h2>Helper.ai <span style={{fontSize:"13px"}}>(Powered by Mistral.ai)</span></h2>
         <button className="btn submit-btn" onClick={callHelperAi}>Prioritise tasks</button>
-        <div className="AI-helper-bod"></div>
+        <button className="btn submit-btn">Plan my day</button>
+        <div className="AI-helper-bod">{resp}</div>
         <input type="text" className="AI-text-input"></input>
         </div>
     )
