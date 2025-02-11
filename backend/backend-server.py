@@ -22,12 +22,29 @@ class Task(BaseModel):
     deadline:datetime
     priority:int
 
+class User(BaseModel):
+    username:str
+    password:str
 MONGO_URL = "mongodb://localhost:27017"
+
+user={
+    "username":"sarvansh",
+    "password":"pass"
+}
 
 client = AsyncIOMotorClient(MONGO_URL)
 db=client.get_database("Todo-list")
 tdData=db.get_collection("list")
 
+@app.post('/checkLogin')
+async def checkLogin(userr:User):
+        if userr.username!=user["username"]:
+            return {"message":"User doesn't exit"}
+        elif userr.password!=user["password"]:
+            return {"message":"wrong password"}
+        else:
+            return {"message":True} 
+        
 # print(tdData)
 @app.get('/todos')
 async def getTodos():

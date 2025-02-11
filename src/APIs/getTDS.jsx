@@ -6,6 +6,21 @@ export const api = axios.create({
     baseURL: API_URL,
 });
 
+export const checkLogin = async (username,password)=>{
+    try{
+        const response =await api.post('/checkLogin',{
+                "username":username,
+                "password":password
+        });
+        return response.data;
+    }
+    catch(error){
+        console.log("Error:",error);
+        throw error;
+    }
+};
+
+
 export const getTDS = async () => {
     try {
         const response = await api.get('/todos'); 
