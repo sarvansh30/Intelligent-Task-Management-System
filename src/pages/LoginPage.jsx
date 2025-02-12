@@ -1,8 +1,8 @@
-import SignUp from './SignupPage'
+
 import "./Login-Signup.css"
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { checkLogin } from '../APIs/getTDS';
+
 const LoginPage = ()=>{
     const navigate = useNavigate();
     function handleClick(event){
