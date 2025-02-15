@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from bson import ObjectId
 from helper_ai_API import PriorityTask
+import bcrypt
 
 app= FastAPI()
 
@@ -35,15 +36,31 @@ user={
 client = AsyncIOMotorClient(MONGO_URL)
 db=client.get_database("Todo-list")
 tdData=db.get_collection("list")
+userData=db.get_collection("Users")
+
+@app.post('/userSignUp')
+async def SignUp(userr:User):
+    resp=await userData.find({"username":userr.username}).to_list(length=None)
+    print(resp)
+    if len(resp)==0:
+        salt=bcrypt.gensalt(rounds=13)
+        hashed_pass=bcrypt.hashpw(userr.password.encode('utf-8'),salt).decode('utf-8')
+        await userData.insert_one({"username":userr.username,"password":hashed_pass})
+        print(hashed_pass)
+    else:
+        return {"msg":"user already exists"}
+
+def verifyPass(password:str,hashed_pass:str)->bool:
+    return bcrypt.checkpw(password.encode('utf-8'),hashed_pass.encode('utf-8'))
 
 @app.post('/checkLogin')
 async def checkLogin(userr:User):
-        if userr.username!=user["username"]:
-            return {"message":"User doesn't exit"}
-        elif userr.password!=user["password"]:
-            return {"message":"wrong password"}
-        else:
-            return {"message":True} 
+    resp=await userData.find({"username":userr.username}).to_list(length=None)
+    print(resp)
+    if len(resp)!=0 and verifyPass(userr.password,resp[0]["password"]):
+        return {"msg":"User logged in!!"}
+    else:
+        return {"error":"wrong username or password "}
         
 # print(tdData)
 @app.get('/todos')

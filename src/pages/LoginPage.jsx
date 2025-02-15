@@ -12,7 +12,7 @@ const LoginPage = ()=>{
         console.log(formData.get("username"));
         checkLogin(formData.get("username"),formData.get("password"))
         .then((data)=>{
-            if(data.message){
+            if(data.msg){
                 navigate('/todoapp')
             }
         })

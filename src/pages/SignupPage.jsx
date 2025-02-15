@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import "./Login-Signup.css"
+import { useState } from "react";
 
 const SignUp = () =>{
+    const [username,setUsername]=useState()
+    const [password,setPasswrod]=useState()
+    const [reEnterPass,setReEnterPass]=useState()
+    
     return(
         <div className="login-body">
             <h3 style={{fontSize:"42px"}}>Sign up</h3>
