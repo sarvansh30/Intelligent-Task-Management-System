@@ -1,26 +1,24 @@
 from datetime import datetime, timedelta, timezone
 import os
 from dotenv import load_dotenv
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query,Depends
 from motor.motor_asyncio import AsyncIOMotorClient
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from bson import ObjectId
 from helper_ai_API import PriorityTask
 from passlib.context import CryptContext
-# import 
-import jwt
+from fastapi.security import OAuth2PasswordBearer,OAuth2PasswordRequestForm
+from jose import jwt, JWTError
 
 load_dotenv()
-SECRET_KEY = os.environ["SECRET_KEY"] 
-ALGORITHM = os.environ["ALGORITHM"]
-ACCESS_TOKEN_EXPIRE_MINUTES = os.environ["ACCESS_TOKEN_EXPIRE_MINUTES"]
+
 
 app= FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Vite's default port
+    allow_origins=["*"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -42,7 +40,9 @@ class Task(BaseModel):
 class User(BaseModel):
     username:str
     password:str
-MONGO_URL = "mongodb://localhost:27017"
+    
+
+MONGO_URL = os.environ["MONGO_URL"]
 
 
 client = AsyncIOMotorClient(MONGO_URL)
@@ -50,11 +50,6 @@ db=client.get_database("Todo-list")
 tdData=db.get_collection("list")
 userData=db.get_collection("Users")
 
-def create_token(data:dict):
-    toEncode=data.copy()
-    expire= datetime.now(timezone.utc) +timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    toEncode.update({"exp":expire})
-    return jwt.encode(toEncode,SECRET_KEY,algorithim=ALGORITHM)
 
 @app.post('/userSignUp')
 async def SignUp(userr:User):
@@ -71,12 +66,41 @@ async def SignUp(userr:User):
 def verifyPass(password:str,hashed_pass:str)->bool:
     return pwd_encrypt.verify(password,hashed_pass)
 
+SECRET_KEY = os.environ["SECRET_KEY"] 
+ALGORITHM = os.environ["ALGORITHM"]
+# ACCESS_TOKEN_EXPIRE_MINUTES = os.environ["ACCESS_TOKEN_EXPIRE_MINUTES"]
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+oauth2_scheme=OAuth2PasswordBearer(tokenUrl="token")
+
+def create_token(data:dict,exp_time:timedelta):
+    to_encode=data.copy()
+    if exp_time:
+        expire=datetime.now()+exp_time
+    else:
+        expire =datetime.now() + timedelta(minutes=1)
+     
+    to_encode.update({"exp":expire})
+    
+    encoded_token=jwt.encode(to_encode,SECRET_KEY,ALGORITHM)
+    return encoded_token
+
+def get_current_user(token:str= Depends(oauth2_scheme)):
+    payload=jwt.decode(token,SECRET_KEY,ALGORITHM)
+    username:str=payload.get("username")
+    return username
+
+
 @app.post('/checkLogin')
 async def checkLogin(userr:User):
     resp=await userData.find({"username":userr.username}).to_list(length=None)
     print(resp)
     if len(resp)!=0 and verifyPass(userr.password,resp[0]["password"]):
-        return {"msg":"User logged in!!"}
+        access_token=create_token(userr.model_dump(),timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
+        
+
+        return {"msg":"User logged in!!",
+                "access_token":access_token,
+                "token_type":"bearer"}
     else:
         return {"error":"wrong username or password "}
         
