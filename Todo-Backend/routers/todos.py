@@ -79,3 +79,28 @@ async def addTodo(data:Todos , curr_user:str=Depends(get_current_user)):
         raise HTTPException(status_code=400, detail="couldn't process it")
     else:
         return {"msg":"Todo Added"}
+
+       
+@router.delete('/deleteTodo')
+async def deletTodo(_id:str , curr_user:str=Depends(get_current_user)):
+
+    try:
+        await tdData.delete_one({"_id":ObjectId(_id)})
+    except Exception as e:
+        print(f"Exception occured: {e}")
+        raise HTTPException(status_code=401,detail=f"An error occurred deleting the todo: {e}")
+    else:
+        return {"msg":"Todo deleted"}
+
+@router.put("/updateTodo")
+async def updateTodo(_id:str, todoStatus:bool , curr_user:str=Depends(get_current_user)):
+
+    try:
+        await tdData.update_one({"_id":ObjectId(_id)},
+                                {"$set":{"isCompleted":not todoStatus}})
+    
+    except Exception as e:
+        print(f"Exception {e} occured.")
+        raise HTTPException(status_code=401,detail=f"Exception: {e}")
+    else:
+        return{"msg":"Todo Status Updated"}
