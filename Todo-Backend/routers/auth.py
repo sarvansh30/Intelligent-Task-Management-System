@@ -76,7 +76,7 @@ async def checkLogin(user:Annotated[OAuth2PasswordRequestForm,Depends()]):
             print("Passwords didn't match")
             return
         
-    access_token=createToken({"sub":user.username},timedelta(minutes=1))
+    access_token=createToken({"sub":user.username},timedelta(minutes=20))
     return access_token
         
 
