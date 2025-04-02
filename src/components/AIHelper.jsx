@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
-import { PrioritiseHelperAi } from "../APIs/todo_API_Calls";
 import ReactMarkdown from "react-markdown";
+import { PrioritiseHelperAi } from "../APIs/todo_API_Calls";
+
 import "./style.css";
 
 function AIHelper(props) {
-  const [resp, setResp] = useState("");
+//   const [resp, setResp] = useState("");
 
   async function callHelperAi() {
     await PrioritiseHelperAi()
@@ -24,14 +25,14 @@ function AIHelper(props) {
       console.error("Token not found in localStorage");
       return;
     }
-    setResp("");
+    props.setResp("");
     fetchEventSource("http://localhost:8000/todoapp/plan-my-day", {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}`
       },
       onmessage: (event) => {
-        setResp(prev => prev + event.data);
+        props.setResp(prev => prev + event.data);
       },
       onerror: (error) => {
         console.error("Stream error:", error);
@@ -51,7 +52,7 @@ function AIHelper(props) {
         Plan my day
       </button>
       <div className="AI-helper-bod">
-        <ReactMarkdown>{resp}</ReactMarkdown>
+        <ReactMarkdown>{props.resp.trim()}</ReactMarkdown>
       </div>
       <input type="text" className="AI-text-input" />
     </div>

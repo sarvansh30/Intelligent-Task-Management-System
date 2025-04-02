@@ -26,15 +26,17 @@ function TodoApp() {
     // console.log(list.title);
   }, []);
 
+  const [res, setRes] = useState("");
+
   return (
     <div div className="BOD">
       <Header className="Head"/>
       <div className="container">
         <div className="Mainsection1">
         <TodoInput tds={list} fetchTDS={fetchTodos} />
-        <TodoList tds={list} fetchTDS={fetchTodos} />
+        <TodoList tds={list} fetchTDS={fetchTodos} setResp={setRes} />
         </div>
-        <AIHelper className="Mainsection2" fetchTDS={fetchTodos}/>
+        <AIHelper className="Mainsection2" fetchTDS={fetchTodos} setResp={setRes} resp = {res}/>
       </div>
       <Footer />
     </div>
