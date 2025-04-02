@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { login } from "../APIs/auth_API_calls";
 // import { checkLogin } from "../APIs/getTDS";
 
-const LoginPage = ()=>{
+const LoginPage = (props)=>{
     const navigate = useNavigate();
     function handleClick(event){
 
@@ -15,7 +15,8 @@ const LoginPage = ()=>{
         login(formData.get("username"),formData.get("password"))
         .then((data)=>{
             if(data.access_token){
-                navigate('/todoapp')
+                props.setOwner(formData.get("username"));
+                navigate('/todoapp');
             }
         })
         event.currentTarget.reset();

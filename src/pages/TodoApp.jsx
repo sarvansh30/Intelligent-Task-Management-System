@@ -9,11 +9,12 @@ import TodoList from "../components/TodoList";
 import { getTDS } from "../APIs/todo_API_Calls";
 import AIHelper from "../components/AIHelper";
 
-function TodoApp() {
+function TodoApp(props) {
   const [list, setList] = useState([]);
   const fetchTodos = async () => {
     try {
       const data = await getTDS();
+    
       setList([...data]);
       // console.log(list);
     } catch (err) {
@@ -30,7 +31,7 @@ function TodoApp() {
 
   return (
     <div div className="BOD">
-      <Header className="Head"/>
+      <Header className="Head"/>{props.owner}
       <div className="container">
         <div className="Mainsection1">
         <TodoInput tds={list} fetchTDS={fetchTodos} />

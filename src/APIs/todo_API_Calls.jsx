@@ -6,9 +6,10 @@ export const getTDS = async () => {
         console.log(response.data);
         return response.data;
     } catch (error) {
-        console.error("Error fetching todos:", error);
-        throw error; 
-    }
+        if (error.response && error.response.status === 401) {
+          // Redirect to login page
+          window.location.href = "/"; 
+        }}
 };
 
 export const postTDS =async (newTodo)=>{
