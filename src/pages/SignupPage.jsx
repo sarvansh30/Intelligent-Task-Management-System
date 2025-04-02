@@ -1,7 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./Login-Signup.css"
 import { useState } from "react";
-import { UserSignUp } from "../APIs/getTDS";
+// import { UserSignUp } from "../APIs/getTDS";
+import { UserSignUp } from "../APIs/auth_API_calls";
 
 const SignUp = () =>{
     const [username,setUsername]=useState()

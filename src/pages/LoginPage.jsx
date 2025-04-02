@@ -1,18 +1,20 @@
 
 import "./Login-Signup.css"
 import { Link, useNavigate } from 'react-router-dom';
-import { checkLogin } from '../APIs/getTDS';
+import { login } from "../APIs/auth_API_calls";
+// import { checkLogin } from "../APIs/getTDS";
 
 const LoginPage = ()=>{
     const navigate = useNavigate();
     function handleClick(event){
+
         event.preventDefault();
         console.log(event);
         const formData=new FormData(event.currentTarget);
         console.log(formData.get("username"));
-        checkLogin(formData.get("username"),formData.get("password"))
+        login(formData.get("username"),formData.get("password"))
         .then((data)=>{
-            if(data.msg){
+            if(data.access_token){
                 navigate('/todoapp')
             }
         })

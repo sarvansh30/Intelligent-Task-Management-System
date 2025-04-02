@@ -1,4 +1,5 @@
-import { postTDS } from "../APIs/getTDS";
+// import { postTDS } from "../APIs/getTDS";
+import { postTDS } from "../APIs/todo_API_Calls";
 import "./style.css"
 
 function TodoInput({tds,fetchTDS}){
@@ -8,12 +9,13 @@ function TodoInput({tds,fetchTDS}){
         event.preventDefault();
         console.log("Form Submitted");
         const formData= new FormData(event.currentTarget);
-        const newTodo={
-            "title":formData.get("todo"),
-            "iscompleted":false,
-            "deadline": formData.get("deadline"),
-            "priority":0
+        const title = formData.get("todo");
+        const deadline = formData.get("deadline");
+        const newTodo ={ "title":title};
+        if(deadline){
+           newTodo["deadline"] = deadline; 
         }
+        
         event.currentTarget.reset();
         // console.log(typeof(newTodo))
         postTDS(newTodo)
@@ -36,7 +38,7 @@ function TodoInput({tds,fetchTDS}){
                 <input className="deadline"
                     type="date"
                     name="deadline"
-                    required="true"
+                    // required="true"
                     />
                 <button className="submit-btn" type="submit">
                     <img src="src/assets/icons8-plus-24.png" alt="ADD" />

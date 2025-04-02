@@ -100,6 +100,11 @@ input[type="text"]:focus, input[type="date"]:focus {
   height:70%;
   background-color: #383933;
   border-radius: 8px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  white-space: pre-wrap;
+  max-height: 400px;
 }
 
 .AI-text-input{

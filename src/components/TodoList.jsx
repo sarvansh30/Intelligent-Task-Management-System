@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { deleteTD,UpdateTD } from '../APIs/getTDS';
+// import { deleteTD,UpdateTD } from '../APIs/getTDS';
+import { deleteTD,UpdateTD } from '../APIs/todo_API_Calls';
 import { format } from "date-fns";
 import "./todo-list.css"
 function TodoList({ tds, fetchTDS }) {
@@ -18,14 +19,14 @@ function TodoList({ tds, fetchTDS }) {
     return (
         <>
             < >
-            <h4 style={{marginBottom:"1px"}}>Tasks to do - {tds.filter(todo=>!todo.iscompleted).length}</h4>
+            <h4 style={{marginBottom:"1px"}}>Tasks to do - {tds.filter(todo=>!todo.isCompleted).length}</h4>
             <div className='todo-section'>
             {tds.slice()
             .sort((a,b)=> b.priority - a.priority)
-            .filter(todo=>!todo.iscompleted)
+            .filter(todo=>!todo.isCompleted)
             .map((todo,index)=>(
                 <p key={index} className='task-card'>
-                <button className="btn btn-iscomplete" onClick={()=>todoStatusChange(todo._id,todo.iscompleted)}>❌</button>
+                <button className="btn btn-iscomplete" onClick={()=>todoStatusChange(todo._id,todo.isCompleted)}>❌</button>
                 {todo.title}
                 <span style={{paddingLeft:'10px' }}>{format(new Date(todo.deadline), 'EEE, dd/MM/yyyy')}</span>
                         
@@ -39,12 +40,12 @@ function TodoList({ tds, fetchTDS }) {
             </>
 
         <>
-            <h4 style={{marginBottom:"0px"}}>Tasks completed - {tds.filter(todo=>todo.iscompleted).length}</h4>
+            <h4 style={{marginBottom:"0px"}}>Tasks completed - {tds.filter(todo=>todo.isCompleted).length}</h4>
             <div className='todo-completed-section '>
-            {tds.filter(todo=>todo.iscompleted)
+            {tds.filter(todo=>todo.isCompleted)
             .map((todo,index)=>(
                 <p key={index} className='task-card'>
-                <button className="btn btn-iscomplete" onClick={()=>todoStatusChange(todo._id,todo.iscompleted)}>✅</button>
+                <button className="btn btn-iscomplete" onClick={()=>todoStatusChange(todo._id,todo.isCompleted)}>✅</button>
                 {todo.title}
                 <span style={{paddingLeft:'10px' }}>{format(new Date(todo.deadline), 'EEE, dd/MM/yyyy')}</span>
                         

@@ -5,7 +5,8 @@ import Footer from "../components/Footer";
 import TodoInput from "../components/TodoInput";
 import TodoList from "../components/TodoList";
 
-import { getTDS } from "../APIs/getTDS";
+// import { getTDS } from "../APIs/getTDS";
+import { getTDS } from "../APIs/todo_API_Calls";
 import AIHelper from "../components/AIHelper";
 
 function TodoApp() {
