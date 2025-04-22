@@ -6,10 +6,10 @@ function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="flex items-center gap-3 text-white relative">
+    <div className="flex items-center gap-3 text-white relative justify-center">
       {/* Brand Name */}
       <div className="leading-tight">
-        <div className="font-extrabold tracking-tight text-7xl pt-3.5">
+        <div className="font-extrabold tracking-normal text-7xl pt-3.5">
           What <span className="text-green-400 italic">ToDo?</span>
 
           {/* Username + Toggle */}

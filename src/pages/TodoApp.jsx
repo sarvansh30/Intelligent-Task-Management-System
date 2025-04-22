@@ -32,34 +32,68 @@ function TodoApp(props) {
   const [helperTabOpen,setHelperTabOpen] = useState(true);
  
   return(
-    <div className="flex flex-col h-screen items-center" >
+    <div className="flex flex-col h-screen " >
       <Header></Header>
-      <main className="flex flex-row flex-grow text-white" >
+      <main className="flex flex-row flex-grow text-white " >
         
-        <nav className={`p-4 transition-all duration-500 overflow-hidden ${navopen ? "w-45":"w-0"}`} >
-          <ul>
-            <li> <a href="#">All</a></li>
-            <li> <a href="#">Today</a></li>
-            <li> <a href="#">Completed</a></li>
-          </ul>
-        </nav>
-        <button type="button"
-        onClick={()=> setNavButton(!navopen)} >
-          {navopen?"◀" : "▶"}
-        </button>
+            <nav className=" p-6 transition-all duration-500 overflow-hidden border-r border-green-400 w-60 text-white h-screen">
+        <ul className="flex flex-col gap-2 text-lg">
+          <li>
+            <a
+              href="#"
+              className="block px-4 py-2 rounded-md hover:bg-zinc-800 hover:text-green-400 transition"
+            >
+              All
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="block px-4 py-2 rounded-md hover:bg-zinc-800 hover:text-green-400 transition"
+            >
+              Today
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="block px-4 py-2 rounded-md hover:bg-zinc-800 hover:text-green-400 transition"
+            >
+              Completed
+            </a>
+          </li>
+        </ul>
+      </nav>
 
-        <div className="flex-grow p-4">
+       
+        <div className="flex-grow p-4 ">
         <TodoInput tds={list} fetchTDS={fetchTodos} />
          <TodoList tds={list} fetchTDS={fetchTodos} setResp={setRes} />
          </div>
 
-         <div className={`p-4 transition-all duration-700 overflow-hidden ${helperTabOpen?"w-120":"w-5"}`}>
-            <AIHelper fetchTDS={fetchTodos} setResp={setRes} resp = {res}/>
-            <button type="button"
-              onClick={()=> setHelperTabOpen(!helperTabOpen)} >
-              {helperTabOpen?"▶":"◀" }
-            </button>
-         </div>
+         <div
+  className={`transition-all duration-700 overflow-hidden border-l border-green-400 h-screen text-white flex flex-col ${
+    helperTabOpen ? "w-[30rem] p-6" : "w-5 p-1"
+  }`}
+>
+  {/* Content: Show only when open */}
+  {helperTabOpen && (
+    <div className="flex-1 overflow-y-auto">
+      <AIHelper fetchTDS={fetchTodos} setResp={setRes} resp={res} />
+    </div>
+  )}
+
+  {/* Toggle Button */}
+  <button
+    type="button"
+    onClick={() => setHelperTabOpen(!helperTabOpen)}
+    className="absolute top-6 right-6 text-cyan-300 hover:bg-zinc-700 rounded-full p-2 transition"
+  >
+    {helperTabOpen ? "▶" : "◀"}
+  </button>
+</div>
+
+
 
       </main>
       <Footer></Footer>
