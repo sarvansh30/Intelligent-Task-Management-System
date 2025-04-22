@@ -22,8 +22,8 @@ const LoginPage = (props)=>{
         event.currentTarget.reset();
     }
     return(
-        <div className="login-body">
-            <h3 style={{fontSize:"42px"}}>Login Page</h3>
+        <div className="flex flex-column ">
+            <h3 >Login Page</h3>
             <form action=""className="container1" onSubmit={handleClick}>
             <p>Enter your username:</p>
             <input type="text" name="username" id="username" className='txt-inp'/>

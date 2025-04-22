@@ -3,10 +3,12 @@ import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
 import TodoApp from "./pages/TodoApp";
 import LoginPage from "./pages/LoginPage";
 import SignUp from "./pages/SignupPage";
+import "./App.css"
 const App = () => {
 
   const [user,setUser]= useState("");
   return (
+    <div className="bg-[#1D1E18]">
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LoginPage setOwner={setUser}/>}/>
@@ -15,6 +17,7 @@ const App = () => {
         <Route path="/todoapp" element={<TodoApp owner={user}/>}/>
       </Routes>
     </BrowserRouter>
+    </div>
   );
 };
 

@@ -28,18 +28,41 @@ function TodoApp(props) {
   }, []);
 
   const [res, setRes] = useState("");
+  const [navopen,setNavButton] = useState(true);
+  const [helperTabOpen,setHelperTabOpen] = useState(true);
+ 
+  return(
+    <div className="flex flex-col h-screen items-center" >
+      <Header></Header>
+      <main className="flex flex-row flex-grow text-white" >
+        
+        <nav className={`p-4 transition-all duration-500 overflow-hidden ${navopen ? "w-45":"w-0"}`} >
+          <ul>
+            <li> <a href="#">All</a></li>
+            <li> <a href="#">Today</a></li>
+            <li> <a href="#">Completed</a></li>
+          </ul>
+        </nav>
+        <button type="button"
+        onClick={()=> setNavButton(!navopen)} >
+          {navopen?"◀" : "▶"}
+        </button>
 
-  return (
-    <div div className="BOD">
-      <Header className="Head"/>{props.owner}
-      <div className="container">
-        <div className="Mainsection1">
+        <div className="flex-grow p-4">
         <TodoInput tds={list} fetchTDS={fetchTodos} />
-        <TodoList tds={list} fetchTDS={fetchTodos} setResp={setRes} />
-        </div>
-        <AIHelper className="Mainsection2" fetchTDS={fetchTodos} setResp={setRes} resp = {res}/>
-      </div>
-      <Footer />
+         <TodoList tds={list} fetchTDS={fetchTodos} setResp={setRes} />
+         </div>
+
+         <div className={`p-4 transition-all duration-700 overflow-hidden ${helperTabOpen?"w-120":"w-5"}`}>
+            <AIHelper fetchTDS={fetchTodos} setResp={setRes} resp = {res}/>
+            <button type="button"
+              onClick={()=> setHelperTabOpen(!helperTabOpen)} >
+              {helperTabOpen?"▶":"◀" }
+            </button>
+         </div>
+
+      </main>
+      <Footer></Footer>
     </div>
   );
 }

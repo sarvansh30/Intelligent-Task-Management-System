@@ -41,21 +41,22 @@ function TodoList({ tds, fetchTDS ,setResp, resp}) {
     return (
         <>
             < >
-            <h4 style={{marginBottom:"1px"}}>Tasks to do - {tds.filter(todo=>!todo.isCompleted).length}</h4>
-            <div className='todo-section'>
+            <h4 >Tasks to do - {tds.filter(todo=>!todo.isCompleted).length}</h4>
+            <div >
             {tds.slice()
             .sort((a,b)=> b.priority - a.priority)
             .filter(todo=>!todo.isCompleted)
             .map((todo,index)=>(
-                <p key={index} className='task-card'>
-                <button className="btn btn-iscomplete" onClick={()=>todoStatusChange(todo._id,todo.isCompleted)}>❌</button>
+                <p key={index} >
+                <button onClick={()=>todoStatusChange(todo._id,todo.isCompleted)}>❌</button>
                 {todo.title}
-                <span style={{paddingLeft:'10px' }}>{format(new Date(todo.deadline), 'EEE, dd/MM/yyyy')}</span>
+                <span>{format(new Date(todo.deadline), 'EEE, dd/MM/yyyy')}</span>
                 
-                <button className="btn" onClick={() => handleAiHelp(todo._id)} style={{paddingLeft:'10px' }}>AI Help?</button>
+                <button  onClick={() => handleAiHelp(todo._id)} >AI Help?</button>
 
-                        <button className='btn btn-delete' onClick={() => handleClick(todo._id)}>
-                            <img src="https://cdn-icons-png.flaticon.com/512/484/484662.png" alt="delete" />
+                        <button onClick={() => handleClick(todo._id)}>
+                            {/* <img src="https://cdn-icons-png.flaticon.com/512/484/484662.png" alt="delete" /> */}
+                            <img src="" alt="delete" />
                         </button>
                 </p>
 
@@ -64,19 +65,19 @@ function TodoList({ tds, fetchTDS ,setResp, resp}) {
             </>
 
         <>
-            <h4 style={{marginBottom:"0px"}}>Tasks completed - {tds.filter(todo=>todo.isCompleted).length}</h4>
-            <div className='todo-completed-section '>
+            <h4 >Tasks completed - {tds.filter(todo=>todo.isCompleted).length}</h4>
+            <div >
             {tds.filter(todo=>todo.isCompleted)
             .map((todo,index)=>(
-                <p key={index} className='task-card'>
-                <button className="btn btn-iscomplete" onClick={()=>todoStatusChange(todo._id,todo.isCompleted)}>✅</button>
+                <p key={index} >
+                <button  onClick={()=>todoStatusChange(todo._id,todo.isCompleted)}>✅</button>
                 {todo.title}
                 <span style={{paddingLeft:'10px' }}>{format(new Date(todo.deadline), 'EEE, dd/MM/yyyy')}</span>
 
                 {/* <button className="btn" onClick={() => handleAiHelp(todo)} >AI Help?</button> */}
 
-                        <button className='btn btn-delete' onClick={() => handleClick(todo._id)}>
-                            <img src="https://cdn-icons-png.flaticon.com/512/484/484662.png" alt="delete" />
+                        <button  onClick={() => handleClick(todo._id)}>
+                            <img src="" alt="delete" />
                         </button>
                 </p>
             ))

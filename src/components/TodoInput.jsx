@@ -30,8 +30,8 @@ function TodoInput({tds,fetchTDS}){
         // console.log(tds);
     }
     return(
-            <form onSubmit={handleSubmit} className="form-container">
-                <input className="Input-field" type="text" 
+            <form onSubmit={handleSubmit}>
+                <input  type="text" 
                 name="todo" 
                 required="true"
                 placeholder="Enter a todo..."/>
@@ -40,7 +40,7 @@ function TodoInput({tds,fetchTDS}){
                     name="deadline"
                     // required="true"
                     />
-                <button className="submit-btn" type="submit">
+                <button  type="submit">
                     <img src="src/assets/icons8-plus-24.png" alt="ADD" />
                 </button>
             </form>
