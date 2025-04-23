@@ -1,9 +1,11 @@
+import React from 'react';
 
-function Footer(){
-    return (
-        <div className="bg-red-600 col-start-1 col-end-9 row-start-10 row-end-11 text-white p-1">
-        <p>©️ sarvansh30 on github</p>
-        </div>
-    );
+function Footer() {
+  return (
+    <footer className="bg-zinc-800 text-white text-center rounded-t-2xl shadow-inner ">
+      <p className="text-sm">©️ sarvansh30 on&nbsp;<a href="https://github.com/sarvansh30" target="_blank" rel="noopener noreferrer" className="underline hover:text-green-400">GitHub</a></p>
+    </footer>
+  );
 }
+
 export default Footer;
