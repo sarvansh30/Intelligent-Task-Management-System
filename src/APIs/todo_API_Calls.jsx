@@ -12,15 +12,15 @@ export const getTDS = async () => {
         }}
 };
 
-export const postTDS =async (newTodo)=>{
+export const postTDS = async (newTodo) => {
     try {
-        const reponse=await api.post('/todoapp/addTodo',newTodo);
-        // getTDS();
-        return reponse.data
+      const response = await api.post('/todoapp/addTodo', newTodo);
+      return response.data;
     } catch (error) {
-        console.log(error);
+      console.error("Error in postTDS:", error);
+      throw error; // Rethrow the error so the calling function can handle it
     }
-};
+  };
 
 export const deleteTD=async (todoID)=>{
     try {

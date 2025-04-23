@@ -130,7 +130,7 @@ async def plan_my_day(curr_user:str = Depends(get_current_user)):
 
         async def event_generator():
             async for chunk in PlanMyDay(tasks):
-                yield f"data: {chunk}\n\n"
+                yield f"data: {chunk}"
     except Exception as e:
         print(f"Exception :{e}")
         raise HTTPException(status_code=401,detail=f"Exception:{e}")
@@ -147,7 +147,7 @@ async def task_help(_id:str ,curr_user=Depends(get_current_user)):
     
         async def event_generator():
             async for chunk in getTaskHelp(task):
-                yield f"data:{chunk}\n\n"
+                yield f"data:{chunk}"
     except Exception as e:
         print(f"Exception: {e}")
         raise HTTPException(status_code=401,detail=f"Exception:{e}")
