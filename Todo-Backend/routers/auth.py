@@ -1,5 +1,5 @@
 from .schemas import User, Todos
-from fastapi import APIRouter,Depends
+from fastapi import APIRouter,Depends,HTTPException,status
 from dotenv import load_dotenv
 import os
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -64,22 +64,46 @@ def createToken(data:dict,exp:timedelta | None=None):
     return token
 
 #routes setup
-@router.post('/login')
-async def checkLogin(user:Annotated[OAuth2PasswordRequestForm,Depends()]):
-    userPresent=await userDB.find_one({"username":user.username})
-    print(userPresent)
-    if not userPresent:
-        print("Username doesn't exist")
-    else:
-        checkPass=verifyPassword(user.password,userPresent['password'])
-        if not checkPass:
-            print("Passwords didn't match")
-            return
+# @router.post('/login')
+# async def checkLogin(user:Annotated[OAuth2PasswordRequestForm,Depends()]):
+#     userPresent=await userDB.find_one({"username":user.username})
+#     print(userPresent)
+#     if not userPresent:
+#         print("Username doesn't exist")
+#     else:
+#         checkPass=verifyPassword(user.password,userPresent['password'])
+#         if not checkPass:
+#             print("Passwords didn't match")
+#             return
         
-    access_token=createToken({"sub":user.username},timedelta(minutes=20))
-    return {"access_token": access_token, "token_type": "bearer"}
+#     access_token=createToken({"sub":user.username},timedelta(minutes=20))
+#     return {"access_token": access_token, "token_type": "bearer"}
         
 
     
+@router.post("/login")
+async def check_login(
+    form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
+):
+    # 1) Look up the user
+    user_record = await userDB.find_one({"username": form_data.username})
+    if not user_record:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
+    # 2) Verify the password
+    if not verifyPassword(form_data.password, user_record["password"]):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    # 3) Create and return the token
+    access_token=createToken({"sub":form_data.username},timedelta(minutes=20))
+    return {"access_token": access_token, "token_type": "bearer"}
+    
         

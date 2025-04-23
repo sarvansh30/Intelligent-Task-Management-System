@@ -1,11 +1,1 @@
-body{
-    background-color: #1E201E;
-    color: #ECDFCC;
-    margin: 0 auto;
-}
-
-.containerIndex{
-    display: flex;
-    flex-direction: column;
-
-}
+@import "tailwindcss";

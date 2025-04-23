@@ -1,61 +1,63 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 import ReactMarkdown from "react-markdown";
 import { PrioritiseHelperAi } from "../APIs/todo_API_Calls";
 
-import "./style.css";
-
-function AIHelper(props) {
-//   const [resp, setResp] = useState("");
-
+function AIHelper({ fetchTDS, setResp, resp }) {
   async function callHelperAi() {
-    await PrioritiseHelperAi()
-      .then(() => {
-        console.log("Helper AI did the priority task");
-        props.fetchTDS();
-      })
-      .catch((error) => {
-        console.error("Error occurred while posting todo:", error);
-      });
+    try {
+      await PrioritiseHelperAi();
+      fetchTDS();
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   async function callPlanMyDay() {
     const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("Token not found in localStorage");
-      return;
-    }
-    props.setResp("");
+    if (!token) return console.error("Token missing");
+    setResp("");
     fetchEventSource("http://localhost:8000/todoapp/plan-my-day", {
       method: "GET",
-      headers: {
-        "Authorization": `Bearer ${token}`
-      },
-      onmessage: (event) => {
-        props.setResp(prev => prev + event.data);
-      },
-      onerror: (error) => {
-        console.error("Stream error:", error);
-      }
+      headers: { Authorization: `Bearer ${token}` },
+      onmessage: (e) => setResp((p) => p + e.data),
+      onerror: (err) => console.error("Stream error:", err),
     });
   }
 
   return (
-    <div className="body">
-      <h2>
-        Helper.ai <span style={{ fontSize: "13px" }}>(Powered by Mistral.ai)</span>
-      </h2>
-      <button className="btn submit-btn" onClick={callHelperAi}>
-        Prioritise tasks
-      </button>
-      <button className="btn submit-btn" onClick={callPlanMyDay}>
-        Plan my day
-      </button>
-      <div className="AI-helper-bod">
-        <ReactMarkdown>{props.resp.trim()}</ReactMarkdown>
+    <aside className="flex flex-col h-full w-full bg-zinc-800 p-4 gap-4 overflow-hidden">
+      {/* Header */}
+      <div>
+        <h3 className="text-white text-xl font-bold">Helper.ai</h3>
+        <p className="text-[#777] text-sm">(Powered by Mistral.ai)</p>
       </div>
-      <input type="text" className="AI-text-input" />
-    </div>
+
+      {/* Buttons side by side */}
+      <div className="flex space-x-2">
+        <button
+          onClick={callHelperAi}
+          className="flex-1 py-2 rounded bg-green-600 hover:bg-green-500 hover:cursor-pointer text-white font-medium transition"
+        >
+          Prioritise tasks
+        </button>
+        <button
+          onClick={callPlanMyDay}
+          className="flex-1 py-2 rounded bg-green-600 hover:bg-green-500 hover:cursor-pointer text-white font-medium transition"
+        >
+          Plan my day
+        </button>
+      </div>
+
+      {/* Streamed response */}
+      <div className="flex-1 overflow-y-auto bg-zinc-800 p-3 rounded text-[#ddd] text-sm leading-relaxed">
+        {resp ? (
+          <ReactMarkdown>{resp.trim()}</ReactMarkdown>
+        ) : (
+          <p className="text-[#555] italic">Your plan will appear here…</p>
+        )}
+      </div>
+    </aside>
   );
 }
 

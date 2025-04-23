@@ -6,7 +6,7 @@ from mistralai import Mistral
 from datetime import datetime
 load_dotenv()
 
-api_key = os.environ["API_KEY"]
+api_key = os.getenv("API_KEY")
 model = "mistral-large-latest"
 
 client = Mistral(api_key=api_key)
@@ -62,3 +62,30 @@ async def getTaskHelp(task):
         if chunk.data.choices[0].delta.content is not None:
             yield chunk.data.choices[0].delta.content
 
+
+# tasks = [
+#     {"_id": "1", "name": "Submit math assignment", "type": "academics", "deadline": "2025-04-25"},
+#     {"_id": "2", "name": "Doctor appointment", "type": "health", "deadline": "2025-04-23"},
+#     {"_id": "3", "name": "Clean room", "type": "household", "deadline": "2025-04-26"},
+#     {"_id": "4", "name": "Finish report for work", "type": "work", "deadline": "2025-04-24"},
+# ]
+# # Run all functions
+# async def main():
+#     print("🔢 Prioritizing Tasks...\n")
+#     prioritized = PriorityTask(tasks)
+#     print(json.dumps(prioritized, indent=2))
+
+#     print("\n🗓️ Planning the Day...\n")
+#     plan_chunks = []
+#     async for chunk in PlanMyDay(tasks):
+#         print(chunk, end="")
+#         plan_chunks.append(chunk)
+
+#     print("\n\n🛠️ Getting Help with a Task...\n")
+#     help_chunks = []
+#     async for chunk in getTaskHelp(tasks[0]):
+#         print(chunk, end="")
+#         help_chunks.append(chunk)
+
+# # Run the async main function
+# asyncio.run(main())
