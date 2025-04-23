@@ -123,33 +123,30 @@ async def PrioritiseTodos(curr_user:str=Depends(get_current_user)):
     else:
         return {"msg":"Prioritised the tasks"}
 
-@router.get("/plan-my-day")
-async def plan_my_day(curr_user:str = Depends(get_current_user)):
-    try:
-        tasks = await getTodos(curr_user)
 
-        async def event_generator():
-            async for chunk in PlanMyDay(tasks):
-                yield f"data: {chunk}"
-    except Exception as e:
-        print(f"Exception :{e}")
-        raise HTTPException(status_code=401,detail=f"Exception:{e}")
-    else:
-        return StreamingResponse(event_generator(), media_type="text/event-stream")
+@router.get("/plan-my-day")
+async def plan_my_day(curr_user: str = Depends(get_current_user)):
+    tasks = await getTodos(curr_user)
+
+    async def event_generator():
+        # stream the AI’s chunks, properly terminated for SSE
+        async for chunk in PlanMyDay(tasks):
+            yield f"data: {chunk}\n\n"
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")
 
 
 @router.get("/task-help")
-async def task_help(_id:str ,curr_user=Depends(get_current_user)):
-    try:
-        print("Querying for _id:", _id) 
-        task= await tdData.find_one({"_id":ObjectId(_id)})
-        task = serialize(task)
-    
-        async def event_generator():
-            async for chunk in getTaskHelp(task):
-                yield f"data:{chunk}"
-    except Exception as e:
-        print(f"Exception: {e}")
-        raise HTTPException(status_code=401,detail=f"Exception:{e}")
-    else:
-        return StreamingResponse(event_generator(),media_type="text/event-stream")
+async def task_help(_id: str, curr_user=Depends(get_current_user)):
+    # fetch and serialize the single task
+    task = await tdData.find_one({"_id": ObjectId(_id)})
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    task = serialize(task)
+
+    async def event_generator():
+        async for chunk in getTaskHelp(task):
+            yield f"data: {chunk}\n\n"
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")
+

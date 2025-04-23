@@ -5,8 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import "./todo-list.css";
 
 function TodoList({ tds, fetchTDS, setResp, navFilter }) {
-  console.log("Current navFilter in TodoList:", navFilter);
-  
   const isToday = (dateString) => {
     const today = new Date();
     const date = new Date(dateString);
@@ -19,7 +17,6 @@ function TodoList({ tds, fetchTDS, setResp, navFilter }) {
 
   const filterTodos = () => {
     if (!tds || tds.length === 0) return [];
-
     switch (navFilter) {
       case 2:
         return tds.filter(todo => isToday(todo.deadline) && !todo.isCompleted);
@@ -60,7 +57,6 @@ function TodoList({ tds, fetchTDS, setResp, navFilter }) {
     if (!token) return console.error("Token not found");
 
     setResp("");
-
     fetchEventSource(`http://localhost:8000/todoapp/task-help?_id=${id}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
@@ -69,7 +65,6 @@ function TodoList({ tds, fetchTDS, setResp, navFilter }) {
     });
   };
 
-  // Helper to get priority label and color
   const getPriorityInfo = (priority) => {
     switch (priority) {
       case 3:
@@ -82,6 +77,24 @@ function TodoList({ tds, fetchTDS, setResp, navFilter }) {
     }
   };
 
+  // Framer Motion variants for cards
+  const cardVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -20 },
+    hover: { scale: 1.01 },
+  };
+  const cardTransition = {
+    type: "spring",
+    stiffness: 200,
+    damping: 20,
+    duration: 0.4,
+  };
+
+  // Button hover transition
+  const btnHover = { scale: 1.03 };
+  const btnTransition = { type: "spring", stiffness: 300, damping: 25 };
+
   return (
     <div className="mt-4">
       {filteredTodos.length === 0 ? (
@@ -90,7 +103,7 @@ function TodoList({ tds, fetchTDS, setResp, navFilter }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         >
           No tasks to display for the selected filter.
         </motion.p>
@@ -101,25 +114,28 @@ function TodoList({ tds, fetchTDS, setResp, navFilter }) {
             return (
               <motion.div
                 key={todo._id}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                className="bg-zinc-800 rounded-2xl p-4 shadow-md mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center hover:scale-[1.01] transition-transform"
+                variants={cardVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                whileHover="hover"
+                transition={cardTransition}
+                className="bg-zinc-800 rounded-2xl p-4 shadow-md mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center"
               >
                 <div className="flex items-center gap-4 w-full">
-                  <button
+                  <motion.button
                     onClick={() => handleToggleStatus(todo._id, todo.isCompleted)}
-                    className="text-2xl cursor-pointer hover:scale-110 transition-transform"
                     title="Toggle status"
+                    whileHover={btnHover}
+                    transition={btnTransition}
+                    className="text-2xl text-white"
                   >
                     {todo.isCompleted ? "✅" : "❌"}
-                  </button>
+                  </motion.button>
 
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <h2 className="text-lg font-semibold break-words">
+                      <h2 className="text-lg font-semibold break-words text-white">
                         {todo.title}
                       </h2>
                       <span
@@ -136,22 +152,32 @@ function TodoList({ tds, fetchTDS, setResp, navFilter }) {
                 </div>
 
                 <div className="flex mt-4 sm:mt-0 sm:gap-3 gap-2 sm:justify-end">
-                  <button
+                  <motion.button
                     onClick={() => handleAiHelp(todo._id)}
-                    className="bg-cyan-700 hover:bg-cyan-500 text-white px-4 py-1.5 rounded-lg text-sm cursor-pointer transition-colors"
+                    className="bg-cyan-700 hover:bg-cyan-600 text-white px-4 py-1.5 rounded-lg text-sm"
+                    whileHover={btnHover}
+                    transition={btnTransition}
                   >
                     AI Help
-                  </button>
-                  <button
+                  </motion.button>
+
+                  <motion.button
                     onClick={() => handleDelete(todo._id)}
-                    className="cursor-pointer hover:scale-110 transition-transform"
+                    title="Delete task"
+                    className="
+                      flex items-center justify-center
+                      bg-red-900 hovered:bg-red-800
+                      p-2 rounded-full
+                    "
+                    whileHover={{ scale: 1.05 }}
+                    transition={btnTransition}
                   >
                     <img
                       src="https://cdn-icons-png.flaticon.com/512/484/484662.png"
                       alt="delete"
-                      className="w-5 h-5"
+                      className="w-5 h-5 filter invert"
                     />
-                  </button>
+                  </motion.button>
                 </div>
               </motion.div>
             );
