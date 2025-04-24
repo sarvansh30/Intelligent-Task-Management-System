@@ -1,6 +1,7 @@
 # AI-Powered Task Management System
 
 An intelligent task manager with AI-driven prioritization and planning features, powered by Mistral.ai.
+Deployed link (demo): sarvansh30-what-todo.vercel.app
 
 ## Table of Contents
 - [Features](#-features)
