@@ -17,7 +17,7 @@ function AIHelper({ fetchTDS, setResp, resp }) {
     const token = localStorage.getItem("token");
     if (!token) return console.error("Token missing");
     setResp("");
-    fetchEventSource("http://localhost:8000/todoapp/plan-my-day", {
+    fetchEventSource("https://intelligent-task-management-system-ogpt.onrender.com/plan-my-day", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
       onmessage: (e) => setResp((p) => p + e.data),
