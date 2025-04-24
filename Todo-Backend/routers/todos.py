@@ -14,7 +14,7 @@ from datetime import datetime, timedelta, timezone
 from bson import ObjectId
 from .helper_AI import PriorityTask,PlanMyDay, getTaskHelp
 from fastapi.responses import StreamingResponse
-load_dotenv()
+load_dotenv(override=True)
 
 router = APIRouter(prefix='/todoapp', tags=["todoapp"])
 

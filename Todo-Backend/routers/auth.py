@@ -11,7 +11,7 @@ from jwt.exceptions import InvalidTokenError
 from fastapi.security import OAuth2PasswordRequestForm
 
 from datetime import datetime, timedelta, timezone
-load_dotenv()
+load_dotenv(override=True)
 # setting up router
 router = APIRouter(prefix='/auth',tags=['auth'])
 
