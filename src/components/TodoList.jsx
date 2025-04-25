@@ -57,7 +57,7 @@ function TodoList({ tds, fetchTDS, setResp, navFilter }) {
     if (!token) return console.error("Token not found");
 
     setResp("");
-    fetchEventSource(`https://intelligent-task-management-system-ogpt.onrender.com/task-help?_id=${id}`, {
+    fetchEventSource(`https://intelligent-task-management-system-ogpt.onrender.com/todoapp/task-help?_id=${id}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
       onmessage: (event) => setResp(prev => prev + event.data),
