@@ -14,6 +14,7 @@ from datetime import datetime, timedelta, timezone
 from bson import ObjectId
 from .helper_AI import PriorityTask,PlanMyDay, getTaskHelp
 from fastapi.responses import StreamingResponse
+from starlette.background import BackgroundTask
 load_dotenv(override=True)
 
 router = APIRouter(prefix='/todoapp', tags=["todoapp"])
@@ -129,11 +130,19 @@ async def plan_my_day(curr_user: str = Depends(get_current_user)):
     tasks = await getTodos(curr_user)
 
     async def event_generator():
-        # stream the AI’s chunks, properly terminated for SSE
         async for chunk in PlanMyDay(tasks):
             yield f"data: {chunk}\n\n"
 
-    return StreamingResponse(event_generator(), media_type="text/event-stream")
+    headers = {
+        "Cache-Control": "no-cache",
+        "Content-Type": "text/event-stream",
+        "Connection": "keep-alive",
+        "Transfer-Encoding": "chunked",
+        # Optional: for some platforms
+        "X-Accel-Buffering": "no"
+    }
+
+    return StreamingResponse(event_generator(), headers=headers)
 
 
 @router.get("/task-help")
