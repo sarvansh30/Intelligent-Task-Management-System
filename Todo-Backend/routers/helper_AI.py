@@ -37,7 +37,7 @@ async def PlanMyDay(tasks):
         messages=[
              {
                   "role": "user",
-                  "content": ("Below are my lists of tasks can you help me plan out my day so i can be productive with proper breaks. keep it to the point just give the plan not too much extra thoughts while making the decisions.Send reponse in suach a way that reac-markdown can easily change line or bold text etc."
+                  "content": ("Below are my lists of tasks can you help me plan out my day so i can be productive with proper breaks and tell me something motivating. keep it to the point just give the plan not too much extra thoughts while making the decisions.Send reponse in such a way that reac-markdown can easily change line or bold text etc."
                               f"Tasks: {json.dumps(tasks)}"),
               },
         ],
