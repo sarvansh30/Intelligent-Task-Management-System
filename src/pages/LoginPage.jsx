@@ -35,61 +35,88 @@ const LoginPage = ({ setOwner }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-zinc-900 p-6">
-      <div className="w-full max-w-md bg-zinc-800 rounded-2xl shadow-md p-8 space-y-6">
-        <h2 className="text-center text-3xl font-bold text-white">Login</h2>
+    <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-b from-[var(--color-bg-primary)] to-[var(--color-bg-secondary)]">
+      <div className="w-full max-w-md bg-[var(--color-bg-tertiary)] rounded-2xl shadow-[var(--shadow-lg)] p-8 space-y-6 relative overflow-hidden backdrop-blur-sm border border-opacity-20 border-white/10">
+        {/* Decorative elements */}
+        <div className="absolute -top-20 -right-20 w-40 h-40 bg-[var(--color-accent-primary)] opacity-30 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-[var(--color-accent-secondary)] opacity-30 rounded-full blur-3xl"></div>
+        
+        <h2 className="text-center text-4xl font-bold text-[var(--color-text-primary)] font-['Poppins']">
+          Welcome Back
+        </h2>
+        <p className="text-center text-[var(--color-text-secondary)] -mt-2">Sign in to your account</p>
 
         {notification.message && (
           <div
-            className={`px-4 py-3 rounded-lg text-sm font-medium border-l-4 shadow-md animate-fade-in-down transition-opacity duration-300
-              ${notification.type === "error" 
-                ? "bg-red-100 text-red-800 border-red-500" 
-                : "bg-green-100 text-green-800 border-green-500"}`}
+            className={`px-4 py-3 rounded-lg text-sm font-medium border-l-4 shadow-md animate-fade-in-down transition-all duration-300 ${
+              notification.type === "error" 
+                ? "bg-red-900/30 text-red-200 border-red-500" 
+                : "bg-green-900/30 text-green-200 border-green-500"
+            }`}
           >
             {notification.message}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-200">
+            <label htmlFor="username" className="block text-sm font-medium text-[var(--color-text-secondary)] mb-1.5">
               Username
             </label>
-            <input
-              id="username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="mt-1 w-full bg-zinc-700 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-              required
-            />
+            <div className="relative">
+              <input
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="w-full bg-[var(--color-bg-secondary)] text-[var(--color-text-primary)] px-4 py-3 rounded-xl 
+                  focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-primary)] 
+                  focus:bg-[var(--color-bg-secondary)] transition-all duration-200 border border-[var(--color-bg-tertiary)]"
+                placeholder="Enter your username"
+                required
+              />
+              <svg xmlns="http://www.w3.org/2000/svg" className="absolute right-3 top-3.5 h-5 w-5 text-[var(--color-text-tertiary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-200">
+            <label htmlFor="password" className="block text-sm font-medium text-[var(--color-text-secondary)] mb-1.5">
               Password
             </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full bg-zinc-700 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-              required
-            />
+            <div className="relative">
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full bg-[var(--color-bg-secondary)] text-[var(--color-text-primary)] px-4 py-3 rounded-xl 
+                  focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-primary)] 
+                  focus:bg-[var(--color-bg-secondary)] transition-all duration-200 border border-[var(--color-bg-tertiary)]"
+                placeholder="Enter your password"
+                required
+              />
+              <svg xmlns="http://www.w3.org/2000/svg" className="absolute right-3 top-3.5 h-5 w-5 text-[var(--color-text-tertiary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-green-600 hover:bg-green-500 text-white py-2 rounded-lg transition duration-200"
+            className="w-full bg-gradient-to-r from-[var(--color-accent-primary)] to-[var(--color-accent-secondary)] 
+              hover:from-[var(--color-accent-secondary)] hover:to-[var(--color-accent-primary)] 
+              text-white py-3 px-4 rounded-xl transition-all duration-300 font-medium
+              shadow-lg shadow-[var(--color-accent-primary)]/20"
           >
-            Enter
+            Sign In
           </button>
         </form>
 
-        <p className="text-center text-gray-400 text-sm">
+        <p className="text-center text-[var(--color-text-secondary)] text-sm mt-6">
           Don't have an account?{' '}
-          <Link to="/signup" className="text-green-400 hover:underline">
+          <Link to="/signup" className="text-[var(--color-accent-secondary)] hover:text-[var(--color-accent-tertiary)] transition-colors duration-200 font-medium">
             Sign Up
           </Link>
         </p>

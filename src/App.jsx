@@ -9,7 +9,7 @@ const App = () => {
   const [user, setUser] = useState("");
 
   return (
-    <div className="bg-[#1D1E18] min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-[var(--color-bg-primary)] to-[var(--color-bg-secondary)]">
       <BrowserRouter>
         <Routes>
           {/* root and /login both need to receive setOwner */}
